@@ -4,7 +4,7 @@ author: "T.J. Seislove"
 date: "4/7/2026"
 output: 
   html_document:
-    code_folding: hide
+      code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -15,3 +15,55 @@ library(janitor)
 library(knitr)
 ```
 
+# General Social Survey
+
+### data import
+
+```{r}
+data(gss_cat)
+```
+
+### Marital Levels
+
+```{r}
+gss_marital <- gss_cat %>% mutate(marital = fct_collapse(marital,
+                         "Pre-Marriage" = c("Never married"),
+                         "Marriage" = c("Married", "Separated"),
+                         "Post-Marriage" = c("Divorced", "Widowed"),
+                          "Missing" = c("No answer")
+                        ))
+
+gss_marital %>% count(marital) %>% kable()
+```
+
+^[Problem 1 Complete]
+
+### Year and Marriage-Status
+
+```{r}
+marriage_year <- gss_marital %>% count(year, marital) %>% 
+  group_by(year) %>% 
+  mutate(prop = n / sum(n)) %>% 
+  ungroup()
+
+head(marriage_year) %>% kable()
+```
+
+^[Problem 2 Complete]
+
+```{r}
+marriage_year <- marriage_year %>% mutate(
+  marital = fct_reorder2(marital, year, prop)
+)
+```
+
+^[Problem 3 Complete]
+
+### Line Plot
+
+```{r}
+marriage_year %>% ggplot(mapping = aes(x = year, y = prop, color = marital)) +
+  geom_line()
+```
+
+^[Problem 4 Complete]
