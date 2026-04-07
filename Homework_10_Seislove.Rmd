@@ -13,6 +13,7 @@ library(tidyverse)
 library(mosaic)
 library(janitor)
 library(knitr)
+library(lubridate)
 ```
 
 # General Social Survey
@@ -67,3 +68,24 @@ marriage_year %>% ggplot(mapping = aes(x = year, y = prop, color = marital)) +
 ```
 
 ^[Problem 4 Complete]
+
+# Los Angeles Lakers
+
+### Dataset Import
+
+```{r}
+data("lakers")
+```
+
+### Converting Date Data
+
+```{r}
+lakers_date <- lakers %>% mutate(
+  date_data = ymd(date),
+  .keep = "used"
+)
+
+head(lakers_date) %>% kable()
+```
+
+The conversion was successful.

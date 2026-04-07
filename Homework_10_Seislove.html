@@ -563,6 +563,57 @@ head(marriage_year) %&gt;% kable()</code></pre>
 <p><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 </div>
 </div>
+<div id="los-angeles-lakers" class="section level1">
+<h1>Los Angeles Lakers</h1>
+<div id="dataset-import" class="section level3">
+<h3>Dataset Import</h3>
+<pre class="r"><code>data(&quot;lakers&quot;)</code></pre>
+</div>
+<div id="converting-date-data" class="section level3">
+<h3>Converting Date Data</h3>
+<pre class="r"><code>lakers_date &lt;- lakers %&gt;% mutate(
+  date_data = ymd(date),
+  .keep = &quot;used&quot;
+)
+
+head(lakers_date) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">date</th>
+<th align="left">date_data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">20081028</td>
+<td align="left">2008-10-28</td>
+</tr>
+<tr class="even">
+<td align="right">20081028</td>
+<td align="left">2008-10-28</td>
+</tr>
+<tr class="odd">
+<td align="right">20081028</td>
+<td align="left">2008-10-28</td>
+</tr>
+<tr class="even">
+<td align="right">20081028</td>
+<td align="left">2008-10-28</td>
+</tr>
+<tr class="odd">
+<td align="right">20081028</td>
+<td align="left">2008-10-28</td>
+</tr>
+<tr class="even">
+<td align="right">20081028</td>
+<td align="left">2008-10-28</td>
+</tr>
+</tbody>
+</table>
+<p>The conversion was successful.</p>
+</div>
+</div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
