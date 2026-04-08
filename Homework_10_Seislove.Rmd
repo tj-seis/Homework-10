@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(mosaic)
 library(janitor)
@@ -88,4 +88,35 @@ lakers_date <- lakers %>% mutate(
 head(lakers_date) %>% kable()
 ```
 
-The conversion was successful.
+The direct conversion from integer to date was successful.
+
+^[Problems 1 & 2 Complete]
+
+### Days of the Week
+
+**Find Distinct Dates**
+
+```{r}
+lakers_distinct <- distinct(lakers_date)
+
+head(lakers_distinct) %>% kable()
+```
+
+**Extract Day of the Week**
+
+```{r}
+lakers_distinct <- lakers_distinct %>% mutate(
+  wday = wday(date_data, label = TRUE)
+)
+
+head(lakers_distinct) %>% kable()
+```
+
+**Make Barplot**
+
+```{r}
+ggplot(data = lakers_distinct, aes(x = wday, fill = wday)) +
+  geom_bar()
+```
+
+^[Problem 3 Complete]
