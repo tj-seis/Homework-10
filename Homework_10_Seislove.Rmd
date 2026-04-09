@@ -18,7 +18,7 @@ library(lubridate)
 
 # General Social Survey
 
-### data import
+### Data Import
 
 ```{r}
 data(gss_cat)
@@ -39,7 +39,7 @@ gss_marital %>% count(marital) %>% kable()
 
 ^[Problem 1 Complete]
 
-### Year and Marriage-Status
+### Year and Marrital Status
 
 ```{r}
 marriage_year <- gss_marital %>% count(year, marital) %>% 
@@ -79,18 +79,33 @@ data("lakers")
 
 ### Converting Date Data
 
+**Integer --> Date**
+
 ```{r}
 lakers_date <- lakers %>% mutate(
-  date_data = ymd(date),
+  date_data = as_date(date),
   .keep = "used"
 )
 
 head(lakers_date) %>% kable()
 ```
 
-The direct conversion from integer to date was successful.
+I think the conversion failed because as_date() doesn't parse the integer into a separate year, month, and day. It looks like it interprets the integer as a number of days since some starting point. Thus it thinks the year is beyond 56,900.
 
-^[Problems 1 & 2 Complete]
+^[Problem 1 Complete]
+
+**Integer --> String --> Date**
+
+```{r}
+lakers_date <- lakers %>% mutate(date = as.character(date)) %>% 
+  mutate(date_data = as_date(date), .keep = "used")
+
+head(lakers_date) %>% kable()
+```
+
+I think this works better because as_date() does parse through the string and it finds separate year, month, and day values. It interprets the first 4 characters as the year, the next 2 as the month, and the last 2 as the day, as opposed to treating the whole string as one value like it did with the integer.
+
+^[Problem 2 Complete]
 
 ### Days of the Week
 
